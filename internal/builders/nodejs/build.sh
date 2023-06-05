@@ -21,6 +21,7 @@ if [ "${GITHUB_WORKSPACE}" == "" ]; then
     exit 1
 fi
 
+# a test comment to start the linters after commit.
 untrusted_realpath=$(realpath -e "${UNTRUSTED_DIRECTORY}")
 echo "Directory '${UNTRUSTED_DIRECTORY}' resolved to '${untrusted_realpath}'"
 
