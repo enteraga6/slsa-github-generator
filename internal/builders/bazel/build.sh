@@ -30,5 +30,14 @@ for CURR_TARGET in "${BUILD_TARGETS[@]}"; do
   CD_PATH=${CURR_TARGET%:*}
   CD_PATH=${CD_PATH////}
   BINARY_NAME=${CURR_TARGET#*:}
-  cp "bazel-bin/$CD_PATH/$BINARY_NAME" ./binaries
+  
+  # Copies the binary to its respective dir
+  cp -L "bazel-out/k8-fastbuild/bin/$CD_PATH/$BINARY_NAME" "./binaries/$BINARY_NAME"
+  
+  # Copies the runfiles to its respective dir
+  cp -Lr "bazel-out/k8-fastbuild/bin/$CD_PATH/$BINARY_NAME.runfiles" "./binaries/$BINARY_NAME"
+  
+  #TODO: Delete unneeded symbolic mappings
+  
+
 done
