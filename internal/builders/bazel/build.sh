@@ -37,7 +37,6 @@ for CURR_TARGET in "${BUILD_TARGETS[@]}"; do
   # Copies the runfiles to its respective dir
   cp -Lr "bazel-out/k8-fastbuild/bin/$CD_PATH/$BINARY_NAME.runfiles" "./binaries/$BINARY_NAME/"
   
-  # TODO: Delete unneeded symbolic mappings
   # Replace "cd -" with cd $OLDPWD so avoid print slowdown
   cd "./binaries/$BINARY_NAME/$BINARY_NAME.runfiles/"
   rm -rf MANIFEST
