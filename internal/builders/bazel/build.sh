@@ -42,9 +42,6 @@ for CURR_TARGET in "${BUILD_TARGETS[@]}"; do
   # Make its respective dir
   mkdir "./binaries/$BINARY_NAME"
   
-  # Exit binaries dir
-  cd -
-  
   # Copies the binary to its respective dir
   cp -L "bazel-out/k8-fastbuild/bin/$CD_PATH/$BINARY_NAME" "./binaries/$BINARY_NAME"
   
