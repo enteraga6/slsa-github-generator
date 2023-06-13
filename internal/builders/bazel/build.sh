@@ -43,13 +43,15 @@ for CURR_TARGET in "${BUILD_TARGETS[@]}"; do
   mkdir "./binaries/$BINARY_NAME"
   
   # Copies the binary to its respective dir
-  cp -L "bazel-out/k8-fastbuild/bin/$CD_PATH/$BINARY_NAME" "./binaries/$BINARY_NAME"
+  cp -L "bazel-out/k8-fastbuild/bin/$CD_PATH/$BINARY_NAME" "./binaries/$BINARY_NAME/"
   
   # Copies the runfiles to its respective dir
   cp -Lr "bazel-out/k8-fastbuild/bin/$CD_PATH/$BINARY_NAME.runfiles" "./binaries/$BINARY_NAME/"
   
   # Replace "cd -" with cd $OLDPWD so avoid print slowdown
   cd "./binaries/$BINARY_NAME/$BINARY_NAME.runfiles/"
+  
+  # Unneeded and can contain unwanted symbolic links
   rm -rf MANIFEST
   rm -rf _repo_mapping  
   
