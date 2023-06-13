@@ -42,11 +42,26 @@ for CURR_TARGET in "${BUILD_TARGETS[@]}"; do
   #Copy the binary to artifact directory, binaries
   cp "bazel-bin/$CD_PATH/$BINARY_NAME" ./binaries
   
-  echo $PWD
+  echo "Binaries Dir Below"
+  echo " "
+  
+  cd binaries
   ls
   
+  echo ""
+  echo "ls above"
+  
+  
+  echo $PWD
+  echo "ls for above dir"
+  echo " "
+  ls
+  
+  echo "Enter bianries dir"
   # Enter binaries dir
   cd binaries
+  
+  echo "ls for binaries dir"
   ls
   
   # Make its respective dir
