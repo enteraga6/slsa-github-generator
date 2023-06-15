@@ -39,25 +39,31 @@ for CURR_TARGET in "${BUILD_TARGETS[@]}"; do
   # "//src/internal:fib" --> "fib"
   BINARY_NAME=${CURR_TARGET#*:}
   
-  # Make its respective dir
-  mkdir "./binaries/$BINARY_NAME"
-  
-  # Copies the binary to its respective dir
-  cp -L "bazel-out/k8-fastbuild/bin/$CD_PATH/$BINARY_NAME" "./binaries/$BINARY_NAME/"
-  
-  # Copies the runfiles to its respective dir
-  cp -Lr "bazel-out/k8-fastbuild/bin/$CD_PATH/$BINARY_NAME.runfiles" "./binaries/$BINARY_NAME/"
-  
-  # Replace "cd -" with cd $OLDPWD so avoid print slowdown
-  cd "./binaries/$BINARY_NAME/$BINARY_NAME.runfiles/"
-  
-  # Unneeded and can contain unwanted symbolic links
-  rm -rf _main/external
-  rm -rf MANIFEST
-  rm -rf _repo_mapping  
-  
-  # Go back to the old dir
-  cd -
+  # If the target is a java target do these steps
+  # if not do the steps in else
+  if [[ "$BINARY_NAME" == *"_deploy.jar"*]]; then
+    echo "these steps"
+  else
+    # Make its respective dir
+    mkdir "./binaries/$BINARY_NAME"
+
+    # Copies the binary to its respective dir
+    cp -L "bazel-out/k8-fastbuild/bin/$CD_PATH/$BINARY_NAME" "./binaries/$BINARY_NAME/"
+
+    # Copies the runfiles to its respective dir
+    cp -Lr "bazel-out/k8-fastbuild/bin/$CD_PATH/$BINARY_NAME.runfiles" "./binaries/$BINARY_NAME/"
+
+    # Replace "cd -" with cd $OLDPWD so avoid print slowdown
+    cd "./binaries/$BINARY_NAME/$BINARY_NAME.runfiles/"
+
+    # Unneeded and can contain unwanted symbolic links
+    rm -rf _main/external
+    rm -rf MANIFEST
+    rm -rf _repo_mapping  
+
+    # Go back to the old dir
+    cd -
+  fi
 done
 
 cd "./binaries"
