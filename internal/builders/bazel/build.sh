@@ -52,6 +52,7 @@ for CURR_TARGET in "${BUILD_TARGETS[@]}"; do
   cd "./binaries/$BINARY_NAME/$BINARY_NAME.runfiles/"
   
   # Unneeded and can contain unwanted symbolic links
+  rm -rf _main/external
   rm -rf MANIFEST
   rm -rf _repo_mapping  
   
