@@ -58,3 +58,8 @@ for CURR_TARGET in "${BUILD_TARGETS[@]}"; do
   # Go back to the old dir
   cd -
 done
+
+cd "./binaries"
+echo "debug: "
+echo " "
+tree
