@@ -41,7 +41,7 @@ for CURR_TARGET in "${BUILD_TARGETS[@]}"; do
   
   # If the target is a java target do these steps
   # if not do the steps in else
-  if [[ "$BINARY_NAME" == *"_deploy.jar"*]]; then
+  if [[ "$BINARY_NAME" == *"_deploy.jar"*]] then
     echo "these steps"
   else
     # Make its respective dir
