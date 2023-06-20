@@ -38,16 +38,22 @@ for CURR_TARGET in "${BUILD_TARGETS[@]}"; do
   # Removes everything up to and including the first colon
   # "//src/internal:fib" --> "fib"
   BINARY_NAME=${CURR_TARGET#*:}
-  
+
+  # Make its respective dir
+  mkdir "./binaries/$BINARY_NAME"
+    
   # If the target is a java target do these steps
   # if not do the steps in else
   if [[ "$BINARY_NAME" == *"_deploy.jar"* ]] 
   then
-    echo "these steps"
-  else
-    # Make its respective dir
-    mkdir "./binaries/$BINARY_NAME"
+    # Copies the _deploy.jar artifact to its respective dir
+    cp -L "bazel-out/k8-fastbuild/bin/$CD_PATH/$BINARY_NAME" "./binaries/$BINARY_NAME/"
 
+    # Copies the Shell Script to run _deploy.jar artifact
+    # TODO: figure out shell script bug with --singlejar flag passed in
+    # cp -Lr "bazel-out/k8-fastbuild/bin/$CD_PATH/$BINARY_NAME.runfiles" "./binaries/$BINARY_NAME/"
+    # replace this cp later with copy from b-out/k8/.../_main/$CD_PATH/target 
+  else
     # Copies the binary to its respective dir
     cp -L "bazel-out/k8-fastbuild/bin/$CD_PATH/$BINARY_NAME" "./binaries/$BINARY_NAME/"
 
