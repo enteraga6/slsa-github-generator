@@ -16,14 +16,22 @@ import { githubObj, rawTokenInterface } from "../src/types";
 import { asMap } from "../src/utils";
 
 export function validateGitHubFields(gho: githubObj): void {
-  // actor_id
+  // actor_id.
   validateField("github.actor_id", gho.actor_id, process.env.GITHUB_ACTOR_ID);
 
-  // event_name
+  // event_name.
   validateField(
     "github.event_name",
     gho.event_name,
     process.env.GITHUB_EVENT_NAME
+  );
+
+  // base_ref.
+  validateField(
+    "github.base_ref",
+    gho.base_ref,
+    process.env.GITHUB_BASE_REF,
+    true
   );
 
   // Validate the event. Only events in
@@ -38,7 +46,7 @@ export function validateGitHubFields(gho: githubObj): void {
     "workflow_dispatch",
   ]);
 
-  // event_payload_sha256
+  // event_payload_sha256.
   const eventPath = process.env.GITHUB_EVENT_PATH || "";
   // NOTE: validate GITHUB_EVENT_PATH is non-empty to provide a better error
   // message.
@@ -49,54 +57,54 @@ export function validateGitHubFields(gho: githubObj): void {
     tscommon.safeFileSha256(eventPath)
   );
 
-  // ref
+  // ref.
   validateField("github.ref", gho.ref, process.env.GITHUB_REF);
 
-  // ref_type
+  // ref_type.
   validateField("github.ref_type", gho.ref_type, process.env.GITHUB_REF_TYPE);
 
-  // repository
+  // repository.
   validateField(
     "github.repository",
     gho.repository,
     process.env.GITHUB_REPOSITORY
   );
 
-  // repository_id
+  // repository_id.
   validateField(
     "github.repository_id",
     gho.repository_id,
     process.env.GITHUB_REPOSITORY_ID
   );
 
-  // repository_owner_id
+  // repository_owner_id.
   validateField(
     "github.repository_owner_id",
     gho.repository_owner_id,
     process.env.GITHUB_REPOSITORY_OWNER_ID
   );
 
-  // run_attempt
+  // run_attempt.
   validateField(
     "github.run_attempt",
     gho.run_attempt,
     process.env.GITHUB_RUN_ATTEMPT
   );
 
-  // run_id
+  // run_id.
   validateField("github.run_id", gho.run_id, process.env.GITHUB_RUN_ID);
 
-  // run_number
+  // run_number.
   validateField(
     "github.run_number",
     gho.run_number,
     process.env.GITHUB_RUN_NUMBER
   );
 
-  // sha
+  // sha.
   validateField("github.sha", gho.sha, process.env.GITHUB_SHA);
 
-  // workflow_ref
+  // workflow_ref.
   validateField(
     "github.workflow_ref",
     gho.workflow_ref,
@@ -108,7 +116,7 @@ export function validateGitHubFields(gho: githubObj): void {
     `${process.env.GITHUB_REPOSITORY}/`
   );
 
-  // workflow_sha
+  // workflow_sha.
   validateField(
     "github.workflow_sha",
     gho.workflow_sha,
@@ -172,15 +180,21 @@ export function validateFieldAnyOf<T>(
  * @param name - the name of the value
  * @param actual - the actual value of the field
  * @param expected - the expected value of the field
+ * @param allow_empty - whether the value may be empty
  * @throws Error - if actual and expected don't match or are empty.
  */
-export function validateField<T>(name: string, actual: T, expected: T): void {
+export function validateField<T>(
+  name: string,
+  actual: T,
+  expected: T,
+  allow_empty = false
+): void {
   if (actual !== expected) {
     throw new Error(
       `mismatch ${name}: got '${actual}', expected '${expected}'.`
     );
   }
-  if (!actual) {
+  if (!allow_empty && !actual) {
     throw new Error(`empty ${name}, expected non-empty value.`);
   }
 }
