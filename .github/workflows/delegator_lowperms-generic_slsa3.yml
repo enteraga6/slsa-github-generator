@@ -278,7 +278,7 @@ jobs:
 
       - name: Sign attestations
         id: sign
-        uses: slsa-framework/slsa-github-generator/.github/actions/sign-attestations@main
+        uses: enteraga6/slsa-github-generator/.github/actions/sign-attestations@sigstore-bug
         with:
           attestations: attestations
           output-folder: "${{ needs.rng.outputs.value }}-slsa-attestations"
