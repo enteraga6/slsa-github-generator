@@ -105,7 +105,7 @@ jobs:
     steps:
       - name: Verify token
         id: verify
-        uses: slsa-framework/slsa-github-generator/.github/actions/verify-token@main
+        uses: enteraga6/slsa-github-generator/.github/actions/verify-token@sigstore-bug
         with:
           slsa-workflow-recipient: "delegator_lowperms-generic_slsa3.yml"
           slsa-unverified-token: ${{ inputs.slsa-token }}
