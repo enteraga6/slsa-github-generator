@@ -17,10 +17,10 @@ import { sigstore } from "sigstore";
 import * as path from "path";
 import * as tscommon from "tscommon";
 
-const signOptions = {
-  oidcClientID: "sigstore",
-  oidcIssuer: "https://oauth2.sigstore.dev/auth",
-};
+// const signOptions = {
+//   oidcClientID: "sigstore",
+//   oidcIssuer: "https://oauth2.sigstore.dev/auth",
+// };
 
 async function run(): Promise<void> {
   try {
@@ -46,7 +46,7 @@ async function run(): Promise<void> {
       if (stat.isFile()) {
         core.debug(`Signing ${fpath}...`);
         const buffer = tscommon.safeReadFileSync(fpath);
-        const bundle = await sigstore.attest(buffer, payloadType, signOptions);
+        const bundle = await sigstore.attest(buffer, payloadType);
         const bundleStr = JSON.stringify(bundle);
         const outputPath = path.join(
           outputFolder,
