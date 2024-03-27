@@ -11,10 +11,10 @@
   "scripts": {
     "ci": "npm ci",
     "build": "tsc",
-    "format": "prettier --write '**/*.ts'",
+    "format": "prettier --write **/*.ts",
     "format-check": "prettier --check '**/*.ts'",
     "package": "ncc build --external encoding --source-map",
-    "lint": "eslint --max-warnings 0 src/**/*.ts",
+    "lint": "eslint --max-warnings 0 'src/**/*.ts'",
     "all": "npm run format && npm run lint && npm run build && npm run package",
     "test": "jest"
   },
@@ -26,7 +26,7 @@
     "@actions/github": "5.1.1",
     "@octokit/webhooks-types": "7.3.1",
     "@sigstore/rekor-types": "1.0.0",
-    "sigstore": "1.8.0",
+    "sigstore": "1.9.0",
     "tscommon": "file:../tscommon/tscommon-0.0.0.tgz",
     "yaml": "2.3.3"
   },
